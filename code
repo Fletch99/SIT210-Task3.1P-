@@ -1,0 +1,27 @@
+
+int led2 = D7; 
+int led1 = A5;
+int photoressistor = A0;
+int PhotoValue;
+
+void setup() {
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(photoressistor, INPUT);
+}
+void loop() {
+  PhotoValue = analogRead(photoressistor);
+  
+  if (PhotoValue > 15){
+      digitalWrite(led1, LOW);
+      digitalWrite(led2, LOW);
+  } else {
+      digitalWrite(led1, HIGH);
+      digitalWrite(led2, HIGH);
+  }
+  
+  String data = String(PhotoValue);
+  Particle.publish("light", data, PRIVATE);
+
+  delay(30000); 
+}
